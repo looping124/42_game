@@ -197,20 +197,167 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-function _default() {
-  console.log('hi');
+function _default(param) {
+  console.log(param);
 }
-},{}],"js/main.js":[function(require,module,exports) {
+},{}],"js/Home.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var Home = function Home() {
+  var argument = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  console.log('Home', argument);
+};
+
+var _default = Home;
+exports.default = _default;
+},{}],"js/PageList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var PageList = function PageList() {
+  var argument = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  var preparePage = function preparePage() {
+    var cleanedArgument = argument.replace(/\s+/g, "-");
+
+    var displayResults = function displayResults(results) {
+      var resultsContent = results.map(function (article) {
+        return "<article class=\"cardGame\">\n          <h1>".concat(article.name, "</h1>\n          <h2>").concat(article.released, "</h2>\n          <a href=\"#pagedetail/").concat(article.id, "\">").concat(article.id, "</a>\n        </article>");
+      });
+      var resultsContainer = document.querySelector(".page-list .articles");
+      resultsContainer.innerHTML = resultsContent.join("\n");
+    };
+
+    var fetchList = function fetchList(url, argument) {
+      var finalURL = argument ? "".concat(url, "&search=").concat(argument) : url;
+      fetch(finalURL).then(function (response) {
+        return response.json();
+      }).then(function (responseData) {
+        displayResults(responseData.results);
+      });
+    };
+
+    fetchList("https://api.rawg.io/api/games?key=".concat('8f284fc566e044f1a78da7f07da524cb'), cleanedArgument);
+  };
+
+  var render = function render() {
+    document.getElementById("main").innerHTML = "\n      <section class=\"page-list\">\n        <div class=\"articles\">...loading</div>\n      </section>\n    ";
+    preparePage();
+  };
+
+  render();
+};
+
+var _default = PageList;
+exports.default = _default;
+},{}],"js/PageDetail.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var PageDetail = function PageDetail(argument) {
+  var preparePage = function preparePage() {
+    var cleanedArgument = argument.replace(/\s+/g, "-");
+
+    var displayGame = function displayGame(gameData) {
+      var name = gameData.name,
+          released = gameData.released,
+          description = gameData.description;
+      var articleDOM = document.querySelector(".page-detail .article");
+      articleDOM.querySelector("h1.title").innerHTML = name;
+      articleDOM.querySelector("p.release-date span").innerHTML = released;
+      articleDOM.querySelector("p.description").innerHTML = description;
+    };
+
+    var fetchGame = function fetchGame(url, argument) {
+      fetch("".concat(url, "/").concat(argument, "?key=", '8f284fc566e044f1a78da7f07da524cb')).then(function (response) {
+        return response.json();
+      }).then(function (responseData) {
+        displayGame(responseData);
+      });
+    };
+
+    fetchGame('https://api.rawg.io/api/games', cleanedArgument);
+  };
+
+  var render = function render() {
+    document.getElementById("main").innerHTML = "\n      <section class=\"page-detail\">\n        <div class=\"article\">\n          <h1 class=\"title\"></h1>\n          <p class=\"release-date\">Release date : <span></span></p>\n          <p class=\"description\"></p>\n        </div>\n      </section>\n    ";
+    preparePage();
+  };
+
+  render();
+};
+
+var _default = PageDetail;
+exports.default = _default;
+},{}],"js/routes.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Home = _interopRequireDefault(require("./Home.js"));
+
+var _PageList = _interopRequireDefault(require("./PageList.js"));
+
+var _PageDetail = _interopRequireDefault(require("./PageDetail.js"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var routes = {
+  '': _Home.default,
+  'pagelist': _PageList.default,
+  'pagedetail': _PageDetail.default
+};
+var _default = routes;
+exports.default = _default;
+},{"./Home.js":"js/Home.js","./PageList.js":"js/PageList.js","./PageDetail.js":"js/PageDetail.js"}],"js/main.js":[function(require,module,exports) {
 "use strict";
 
 require("./../scss/main.scss");
 
 var _func = _interopRequireDefault(require("./func.js"));
 
+var _routes = _interopRequireDefault(require("./routes.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _func.default)();
-},{"./../scss/main.scss":"scss/main.scss","./func.js":"js/func.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+// func(routes)
+var pageArgument;
+
+var callRoute = function callRoute() {
+  var hash = window.location.hash;
+  var pathParts = hash.substring(1).split('/');
+  var pageName = pathParts[0];
+  var pageArgument = pathParts[1] || '';
+  var pageFunction = _routes.default[pageName];
+
+  if (pageFunction !== undefined) {
+    pageFunction(pageArgument);
+  }
+};
+
+window.addEventListener('hashchange', function () {
+  return callRoute();
+});
+window.addEventListener('DOMContentLoaded', function () {
+  return callRoute();
+});
+},{"./../scss/main.scss":"scss/main.scss","./func.js":"js/func.js","./routes.js":"js/routes.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -238,7 +385,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36501" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38331" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
