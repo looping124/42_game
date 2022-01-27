@@ -332,25 +332,25 @@ var PageDetail = function PageDetail(argument) {
       articleDOM.querySelector("p.description").innerHTML = description;
       articleDOM.querySelector("p.website").innerHTML = website;
       publishers.forEach(function (publisher) {
-        articleDOM.querySelector("p.publishers").innerHTML += "\n        <p>".concat(publisher.name, "</p>\n        ");
+        articleDOM.querySelector("p.publishers").innerHTML += "\n        <span>".concat(publisher.name, ", </span>\n        ");
       });
       tags.forEach(function (tag) {
-        articleDOM.querySelector("p.tags").innerHTML += "\n        <p>".concat(tag.name, "</p>\n        ");
+        articleDOM.querySelector("p.tags").innerHTML += "\n        <span>".concat(tag.name, ", </span>\n        ");
       });
       developers.forEach(function (developer) {
-        articleDOM.querySelector("p.developers").innerHTML += "\n        <p>".concat(developer.name, "</p>\n        ");
+        articleDOM.querySelector("p.developers").innerHTML += "\n        <span>".concat(developer.name, ", </span>\n        ");
       });
       genres.forEach(function (genre) {
-        articleDOM.querySelector("p.genres").innerHTML += "\n        <p>".concat(genre.name, "</p>\n        ");
+        articleDOM.querySelector("p.genres").innerHTML += "\n        <span>".concat(genre.name, "</span>\n        ");
       });
       parent_platforms.forEach(function (parent_platform) {
-        articleDOM.querySelector("p.parent_platforms").innerHTML += "\n        <p>".concat(parent_platform.platform.name, "</p>\n        ");
+        articleDOM.querySelector("p.parent_platforms").innerHTML += "\n        <span>".concat(parent_platform.platform.name, "</span>\n        ");
       });
       articleDOM.querySelector("p.rating").innerHTML = "Rating : ".concat(rating);
       articleDOM.querySelector("p.ratings_count").innerHTML = "Ratings_count : ".concat(ratings_count);
       console.log(stores[0].store.domain);
       stores.forEach(function (astore) {
-        articleDOM.querySelector("p.stores").innerHTML += "\n        <p>".concat(astore.store.domain, "</p>\n        ");
+        articleDOM.querySelector("p.stores").innerHTML += "\n        <span>".concat(astore.store.domain, "</span>\n        ");
       });
     };
 
@@ -372,7 +372,7 @@ var PageDetail = function PageDetail(argument) {
     intro.classList.add("hide-me");
     filter.classList.add("hide-me");
     showMore.classList.add("hide-me");
-    document.getElementById("main").innerHTML = "\n      <section class=\"page-detail\">\n        <div class=\"article\">\n          <h1 class=\"title\"></h1>\n          <p class=\"release-date\">Release date : <span></span></p>\n          <p class=\"description\"></p>\n          <p class =\"background_image\"></p>\n          <p class=\"website\"></p>\n          <p class=\"publishers\"></p>\n          <p class=\"tags\"></p>\n          <p class=\"developers\"></p>\n          <p class=\"genres\"></p>\n          <p class=\"parent_platforms\"></p>\n          <p class=\"rating\"></p>\n          <p class=\"ratings_count\"></p>\n          <p class=\"stores\"></p>\n        </div>\n      </section>\n    ";
+    document.getElementById("main").innerHTML = "\n      <section class=\"page-detail\">\n        <div class=\"article\">\n          <p class =\"background_image\"></p>\n          <h1 class=\"title\"></h1>\n          <p class=\"release-date\">Release date : <span></span></p>\n          <p class=\"description\"></p>         \n          <p class=\"website\"></p>\n          <p class=\"publishers\"></p>\n          <p class=\"tags\"></p>\n          <p class=\"developers\"></p>\n          <p class=\"genres\"></p>\n          <p class=\"parent_platforms\"></p>\n          <p class=\"rating\"></p>\n          <p class=\"ratings_count\"></p>\n          <p class=\"stores\"></p>\n        </div>\n      </section>\n    ";
     preparePage();
   };
 

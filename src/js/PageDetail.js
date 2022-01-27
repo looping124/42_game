@@ -17,27 +17,27 @@ const PageDetail = (argument) => {
       articleDOM.querySelector("p.website").innerHTML = website; 
       publishers.forEach(publisher => {
         articleDOM.querySelector("p.publishers").innerHTML += `
-        <p>${publisher.name}</p>
+        <span>${publisher.name}, </span>
         `;
       });          
       tags.forEach(tag => {
         articleDOM.querySelector("p.tags").innerHTML += `
-        <p>${tag.name}</p>
+        <span>${tag.name}, </span>
         `;
       });
       developers.forEach(developer => {
         articleDOM.querySelector("p.developers").innerHTML += `
-        <p>${developer.name}</p>
+        <span>${developer.name}, </span>
         `;
       });       
       genres.forEach(genre => {
         articleDOM.querySelector("p.genres").innerHTML += `
-        <p>${genre.name}</p>
+        <span>${genre.name}</span>
         `;
       });  
       parent_platforms.forEach(parent_platform => {
         articleDOM.querySelector("p.parent_platforms").innerHTML += `
-        <p>${parent_platform.platform.name}</p>
+        <span>${parent_platform.platform.name}</span>
         `;
       });  
       articleDOM.querySelector("p.rating").innerHTML = `Rating : ${rating}`;
@@ -45,7 +45,7 @@ const PageDetail = (argument) => {
       console.log(stores[0].store.domain);
       stores.forEach(astore => {
         articleDOM.querySelector("p.stores").innerHTML += `
-        <p>${astore.store.domain}</p>
+        <span>${astore.store.domain}</span>
         `;
       });  
     };
@@ -73,10 +73,10 @@ const PageDetail = (argument) => {
     document.getElementById("main").innerHTML = `
       <section class="page-detail">
         <div class="article">
+          <p class ="background_image"></p>
           <h1 class="title"></h1>
           <p class="release-date">Release date : <span></span></p>
-          <p class="description"></p>
-          <p class ="background_image"></p>
+          <p class="description"></p>         
           <p class="website"></p>
           <p class="publishers"></p>
           <p class="tags"></p>
