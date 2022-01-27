@@ -314,11 +314,44 @@ var PageDetail = function PageDetail(argument) {
       console.log(gameData);
       var name = gameData.name,
           released = gameData.released,
-          description = gameData.description;
+          description = gameData.description,
+          website = gameData.website,
+          background_image = gameData.background_image,
+          publishers = gameData.publishers,
+          tags = gameData.tags,
+          developers = gameData.developers,
+          genres = gameData.genres,
+          parent_platforms = gameData.parent_platforms,
+          rating = gameData.rating,
+          ratings_count = gameData.ratings_count,
+          stores = gameData.stores;
       var articleDOM = document.querySelector(".page-detail .article");
+      articleDOM.querySelector("p.background_image").innerHTML = "\n      <img src=\"".concat(background_image, "\" alt=\"\" class=\"back-img\">\n      ");
       articleDOM.querySelector("h1.title").innerHTML = name;
       articleDOM.querySelector("p.release-date span").innerHTML = released;
       articleDOM.querySelector("p.description").innerHTML = description;
+      articleDOM.querySelector("p.website").innerHTML = website;
+      publishers.forEach(function (publisher) {
+        articleDOM.querySelector("p.publishers").innerHTML += "\n        <p>".concat(publisher.name, "</p>\n        ");
+      });
+      tags.forEach(function (tag) {
+        articleDOM.querySelector("p.tags").innerHTML += "\n        <p>".concat(tag.name, "</p>\n        ");
+      });
+      developers.forEach(function (developer) {
+        articleDOM.querySelector("p.developers").innerHTML += "\n        <p>".concat(developer.name, "</p>\n        ");
+      });
+      genres.forEach(function (genre) {
+        articleDOM.querySelector("p.genres").innerHTML += "\n        <p>".concat(genre.name, "</p>\n        ");
+      });
+      parent_platforms.forEach(function (parent_platform) {
+        articleDOM.querySelector("p.parent_platforms").innerHTML += "\n        <p>".concat(parent_platform.platform.name, "</p>\n        ");
+      });
+      articleDOM.querySelector("p.rating").innerHTML = "Rating : ".concat(rating);
+      articleDOM.querySelector("p.ratings_count").innerHTML = "Ratings_count : ".concat(ratings_count);
+      console.log(stores[0].store.domain);
+      stores.forEach(function (astore) {
+        articleDOM.querySelector("p.stores").innerHTML += "\n        <p>".concat(astore.store.domain, "</p>\n        ");
+      });
     };
 
     var fetchGame = function fetchGame(url, argument) {
@@ -339,7 +372,7 @@ var PageDetail = function PageDetail(argument) {
     intro.classList.add("hide-me");
     filter.classList.add("hide-me");
     showMore.classList.add("hide-me");
-    document.getElementById("main").innerHTML = "\n      <section class=\"page-detail\">\n        <div class=\"article\">\n          <h1 class=\"title\"></h1>\n          <p class=\"release-date\">Release date : <span></span></p>\n          <p class=\"description\"></p>\n        </div>\n      </section>\n    ";
+    document.getElementById("main").innerHTML = "\n      <section class=\"page-detail\">\n        <div class=\"article\">\n          <h1 class=\"title\"></h1>\n          <p class=\"release-date\">Release date : <span></span></p>\n          <p class=\"description\"></p>\n          <p class =\"background_image\"></p>\n          <p class=\"website\"></p>\n          <p class=\"publishers\"></p>\n          <p class=\"tags\"></p>\n          <p class=\"developers\"></p>\n          <p class=\"genres\"></p>\n          <p class=\"parent_platforms\"></p>\n          <p class=\"rating\"></p>\n          <p class=\"ratings_count\"></p>\n          <p class=\"stores\"></p>\n        </div>\n      </section>\n    ";
     preparePage();
   };
 
