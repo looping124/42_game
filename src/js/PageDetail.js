@@ -1,8 +1,10 @@
 const PageDetail = (argument) => {
+  console.log(argument);
   const preparePage = () => {
     const cleanedArgument = argument.replace(/\s+/g, "-");
 
     const displayGame = (gameData) => {
+      console.log(gameData);
       const { name, released, description } = gameData;
       const articleDOM = document.querySelector(".page-detail .article");
       articleDOM.querySelector("h1.title").innerHTML = name;
@@ -22,6 +24,14 @@ const PageDetail = (argument) => {
   };
 
   const render = () => {
+    let intro = document.getElementById('intro');
+    let filter = document.getElementById('filter');
+    let showMore = document.getElementById('showMore');
+    intro.classList.add("hide-me");
+    filter.classList.add("hide-me");
+    showMore.classList.add("hide-me");
+    
+
     document.getElementById("main").innerHTML = `
       <section class="page-detail">
         <div class="article">

@@ -5,7 +5,7 @@ body {
   max-width: 1000px;
   margin-left:auto;
   margin-right:auto;
-  border: solid grey;
+  // border: solid grey;
   
 }
 
@@ -22,7 +22,17 @@ body {
 }
 
 .cardGame {
-  border: solid #ffffff;
+  // border: solid #ffffff;
+  width: 200px;
+  height: 300px;
+  word-wrap:break-word;
+}
+
+.card-image{
+  float: left;
+  width:  200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 a {
@@ -50,7 +60,26 @@ a {
 }
 
 .main{
-  border: dashed blue;
+  // border: dashed blue;
+  display: flex;
+  flex-direction: row;
+}
+
+.page-list{
+  // border: dashed grey;
+  height:100%;
+  width: 100%;
+}
+
+.articles{
+  // border: dashed yellow;
+  height:100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 17px;
 }
 
 /* Add a black background color to the top navigation */
@@ -68,6 +97,27 @@ a {
   text-decoration: none;
   font-size: 17px;
 }
+.topnav input {
+  height: 2em;
+  width: 10em;
+}
+
+.hover {
+  background-color: rgba($color: black, $alpha: 0.5);
+  // border: dashed blue;
+  position: absolute;
+  display: none;
+  float: left;
+  width:  200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.img:hover .hover{
+  // border: dashed red;
+  display: block;
+}
+
 
 /* Change the color of links on hover */
 .topnav a:hover {
@@ -89,4 +139,9 @@ a {
   padding-left: 3em;
   padding-bottom: 1em;
   font-size: 0.7em;
+}
+
+
+.hide-me{
+  display: none;
 }

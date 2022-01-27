@@ -225,31 +225,68 @@ exports.default = void 0;
 
 var PageList = function PageList() {
   var argument = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var counterPage = 1;
 
   var preparePage = function preparePage() {
     var cleanedArgument = argument.replace(/\s+/g, "-");
+    var arrayImg = ['', '<i class="fab fa-windows" style="font-size:30px"></i>', '<i class="fab fa-playstation" style="font-size:30px"></i>', '<i class="fab fa-xbox" style="font-size:30px"></i>', '<i class="fab fa-app-store-ios" style="font-size:30px"></i>', '<i class="fab fa-apple" style="font-size:30px"></i>', '<i class="fab fa-linux" style="font-size:30px"></i>', '<i class="fab fa-nintendo-switch" style="font-size:30px"></i>', '<i class="fab fa-android" style="font-size:30px"></i>'];
 
     var displayResults = function displayResults(results) {
+      var more = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       var resultsContent = results.map(function (article) {
-        return "<article class=\"cardGame\">\n          <h1>".concat(article.name, "</h1>\n          <h2>").concat(article.released, "</h2>\n          <a href=\"#pagedetail/").concat(article.id, "\">").concat(article.id, "</a>\n        </article>");
+        return "<article class=\"cardGame\">\n          <div class=\"img\">\n            <img src=".concat(article.background_image, " alt=\"image\" class=\"card-image\">\n          <div class=\"hover\">\n          <p>Rating : ").concat(article.rating, " for ").concat(article.ratings_count, " ratings</p>\n          <p>Genres :").concat(article.genres[0].name, "\n          ").concat(article.genres[1].name || '', "</p>\n          </div>\n          </div>          \n          <a href=\"#pagedetail/").concat(article.id, "\">").concat(article.name, "</a>\n          <div>").concat(article.parent_platforms.map(function (e) {
+          return arrayImg[e.platform.id];
+        }).join(' '), "</div>\n        </article>");
       });
       var resultsContainer = document.querySelector(".page-list .articles");
-      resultsContainer.innerHTML = resultsContent.join("\n");
+
+      if (more) {
+        resultsContainer.innerHTML += resultsContent.join("\n");
+      } else {
+        resultsContainer.innerHTML = resultsContent.join("\n");
+      }
     };
 
     var fetchList = function fetchList(url, argument) {
+      var more = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
       var finalURL = argument ? "".concat(url, "&search=").concat(argument) : url;
       fetch(finalURL).then(function (response) {
         return response.json();
       }).then(function (responseData) {
-        displayResults(responseData.results);
+        displayResults(responseData.results, more);
       });
     };
 
-    fetchList("https://api.rawg.io/api/games?key=".concat('8f284fc566e044f1a78da7f07da524cb'), cleanedArgument);
+    fetchList("https://api.rawg.io/api/games?key=8f284fc566e044f1a78da7f07da524cb&page_size=9&page=".concat(counterPage), cleanedArgument);
+    var myShowMore = document.getElementById('showMore');
+    myShowMore.addEventListener('click', function (e) {
+      counterPage++;
+      var myValue = document.getElementById('searchValue').value;
+      fetchList("https://api.rawg.io/api/games?key=8f284fc566e044f1a78da7f07da524cb&page_size=".concat(9, "&page=", counterPage, "&search=").concat(myValue), cleanedArgument, true);
+
+      if (counterPage == 3) {
+        myShowMore.remove();
+      }
+    });
+    var search = document.getElementById('search');
+    search.addEventListener('click', function (e) {
+      e.preventDefault();
+      var myValue = document.getElementById('searchValue').value;
+      fetchList("https://api.rawg.io/api/games?key=8f284fc566e044f1a78da7f07da524cb&page_size=".concat(9, "&page=1&search=", myValue), cleanedArgument);
+
+      if (counterPage == 3) {
+        myShowMore.remove();
+      }
+    });
   };
 
   var render = function render() {
+    var intro = document.getElementById('intro');
+    var filter = document.getElementById('filter');
+    var showMore = document.getElementById('showMore');
+    intro.classList.remove("hide-me");
+    filter.classList.remove("hide-me");
+    showMore.classList.remove("hide-me");
     document.getElementById("main").innerHTML = "\n      <section class=\"page-list\">\n        <div class=\"articles\">...loading</div>\n      </section>\n    ";
     preparePage();
   };
@@ -268,10 +305,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var PageDetail = function PageDetail(argument) {
+  console.log(argument);
+
   var preparePage = function preparePage() {
     var cleanedArgument = argument.replace(/\s+/g, "-");
 
     var displayGame = function displayGame(gameData) {
+      console.log(gameData);
       var name = gameData.name,
           released = gameData.released,
           description = gameData.description;
@@ -293,6 +333,12 @@ var PageDetail = function PageDetail(argument) {
   };
 
   var render = function render() {
+    var intro = document.getElementById('intro');
+    var filter = document.getElementById('filter');
+    var showMore = document.getElementById('showMore');
+    intro.classList.add("hide-me");
+    filter.classList.add("hide-me");
+    showMore.classList.add("hide-me");
     document.getElementById("main").innerHTML = "\n      <section class=\"page-detail\">\n        <div class=\"article\">\n          <h1 class=\"title\"></h1>\n          <p class=\"release-date\">Release date : <span></span></p>\n          <p class=\"description\"></p>\n        </div>\n      </section>\n    ";
     preparePage();
   };
@@ -385,7 +431,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38331" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32979" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
