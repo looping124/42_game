@@ -10,8 +10,7 @@ const PageList = (argument = '') => {
             <img src=${article.background_image} alt="image" class="card-image">
           <div class="hover">
           <p>Rating : ${article.rating} for ${article.ratings_count} ratings</p>
-          <p>Genres :${article.genres[0].name}
-          ${article.genres[1].name || ''}</p>
+          <p>Genres :${article.genres[0].name}</p>
           </div>
           </div>          
           <a href="#pagedetail/${article.id}">${article.name}</a>

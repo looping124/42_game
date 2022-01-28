@@ -1,7 +1,10 @@
+$text-white: #ffffff;
+$text-red: #d20a32;
+
 body {
   background-color: #191919;
   font-family: 'Lato', sans-serif;
-  color: #ffffff;
+  color: $text-white;
   max-width: 1000px;
   margin-left:auto;
   margin-right:auto;
@@ -10,11 +13,11 @@ body {
 }
 
 .white-color {
-  color: #ffffff
+  color: $text-white
 }
 
 .red-text {
-  color: #d20a32;
+  color: $text-red;
 }
 
 .red-back{

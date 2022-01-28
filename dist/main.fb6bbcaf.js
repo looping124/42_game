@@ -234,7 +234,7 @@ var PageList = function PageList() {
     var displayResults = function displayResults(results) {
       var more = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
       var resultsContent = results.map(function (article) {
-        return "<article class=\"cardGame\">\n          <div class=\"img\">\n            <img src=".concat(article.background_image, " alt=\"image\" class=\"card-image\">\n          <div class=\"hover\">\n          <p>Rating : ").concat(article.rating, " for ").concat(article.ratings_count, " ratings</p>\n          <p>Genres :").concat(article.genres[0].name, "\n          ").concat(article.genres[1].name || '', "</p>\n          </div>\n          </div>          \n          <a href=\"#pagedetail/").concat(article.id, "\">").concat(article.name, "</a>\n          <div>").concat(article.parent_platforms.map(function (e) {
+        return "<article class=\"cardGame\">\n          <div class=\"img\">\n            <img src=".concat(article.background_image, " alt=\"image\" class=\"card-image\">\n          <div class=\"hover\">\n          <p>Rating : ").concat(article.rating, " for ").concat(article.ratings_count, " ratings</p>\n          <p>Genres :").concat(article.genres[0].name, "</p>\n          </div>\n          </div>          \n          <a href=\"#pagedetail/").concat(article.id, "\">").concat(article.name, "</a>\n          <div>").concat(article.parent_platforms.map(function (e) {
           return arrayImg[e.platform.id];
         }).join(' '), "</div>\n        </article>");
       });
@@ -464,7 +464,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "32979" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40397" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
